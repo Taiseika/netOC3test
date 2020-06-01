@@ -1,0 +1,49 @@
+<form action="{{ action }}" method="post" id="afterpay-form-payment">
+    <div class="form-group required col-sm-4">
+        <label class="col-sm-6 control-label" for="gender">{{ text_please_select_gender }}:</label>
+        <select name="gender" class="form-control">
+            <option value="male">{{ text_please_select_gender_male }}</option>
+            <option value="female">{{ text_please_select_gender_female }}</option>
+        </select>
+    </div>
+ 
+    <div class="form-group required  col-sm-4">
+        <label class="col-sm-6 control-label" for="dob">{{ text_please_enter_dob }}:</label>
+        <input type="text" name="dob" id="dob" placeholder="dd-mm-yyyy" class="form-control"/>
+    </div>
+ 
+    <div class="form-group required  col-sm-4"> 
+        <div class="col-sm-1">
+            <input type="checkbox" name="ap_terms_and_conditions" id="ap_terms_and_conditions" />
+        </div>
+        <label class="col-sm-10 control-label" for="ap_terms_and_conditions">{{ text_i_accept }} <a href="{{ terms_conditions_url }}" target="_blank">{{ text_terms_and_conditions }}</a></label>
+    </div>
+
+    <div class="form-group pull-right col-sm-12">
+        {% if is_ap_allowed %}
+            <div class="right col-sm-3 pull-right">
+                <input type="submit" id="afterpay-button-payment" value="{{ button_confirm }}" class="button btn btn-primary pull-right"/>
+            </div>
+        {% endif %}
+    </div>
+</form> 
+<script type="text/javascript"><!--
+$(document).delegate('#afterpay-button-payment', 'click', function(e) {
+    e.preventDefault();
+    var valid = true;
+    $('.alert, .alert-danger').remove();
+    if ($('#ap_terms_and_conditions').is(':checked')  == false) {
+        valid =false;
+        $('#collapse-checkout-confirm .panel-body').prepend('<div class="alert alert-danger">' + '{{ text_error_please_accept_tc }}' + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+    }
+    if (!$('#dob').val().match(/^(0[1-9]|[12][0-9]|3[01])\-(0[1-9]|1[012])\-[0-9]{4}/)) {
+        valid =false;
+        $('#collapse-checkout-confirm .panel-body').prepend('<div class="alert alert-danger">' + '{{ text_error_invalid_dob }}' + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+    } 
+    if (valid) {
+        $('#afterpay-form-payment').submit();
+    
+    }
+    return;    
+});
+//--></script>

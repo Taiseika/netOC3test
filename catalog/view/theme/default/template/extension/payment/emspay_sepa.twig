@@ -1,0 +1,18 @@
+<h2>{{ ems_bank_details }}</h2>
+<p><b>{{ text_description }}</b></p>
+
+<form action={{ action }} method="post">
+    <div class="well well-sm">
+        <p>{{ ems_payment_reference }}</p>
+        <p>{{ ems_iban }}</p>
+        <p>{{ ems_bic }}</p>
+        <p>{{ ems_account_holder }}</p>
+        <p>{{ ems_residence }}</p>
+    </div>
+
+    <div class="buttons pull-right">
+        <div class="right">
+            <input type="submit" value="{{ button_confirm }}" class="button btn btn-primary"/>
+        </div>
+    </div>
+</form>
